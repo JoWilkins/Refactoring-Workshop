@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LineChart from './LineChart';
+import { ChartsContainer, Row, Column } from './LayoutComponents';
 
 const ChartWrapper = styled.div`
   height: 100%;
@@ -100,12 +101,14 @@ const MultiLineChart = ({ qlikApp, objectId }) => {
   }, [qlikApp, objectId]);
 
   return (
-    <ChartWrapper>
-      {' '}
-      {data && xAxis && yAxes && (
-        <LineChart data={data} xAxis={xAxis} yAxes={yAxes} />
-      )}
-    </ChartWrapper>
+    <ChartsContainer>
+      <Row width={100} size={1}>
+        <Column width={1}></Column>{' '}
+        {data && xAxis && yAxes && (
+          <LineChart data={data} xAxis={xAxis} yAxes={yAxes} />
+        )}
+      </Row>
+    </ChartsContainer>
   );
 };
 MultiLineChart.whyDidYouRender = true;

@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { axisBottom, axisLeft } from 'd3';
 
+const width = 1000;
+const height = 750;
 const LineChart = ({ data, xAxis, yAxes }) => {
-  const margin = { top: 20, right: 20, bottom: 30, left: 50 };
-  const width = 1000;
-  // - margin.left - margin.right;
-  const height = 750;
-  // - margin.top - margin.bottom;
+  const margin = ((height + width) / 2) * 0.1;
 
   useEffect(() => {
     d3.selectAll('g').exit().remove();
+
+    d3.select('#main-g-tag')
+      .attr('class', 'line')
+      .attr('transform', `translate(${margin}, ${margin})`);
+
     const ordinalDomain = data[xAxis].map((xAxisObj) => {
       return xAxisObj.qText;
     });
@@ -22,28 +25,17 @@ const LineChart = ({ data, xAxis, yAxes }) => {
     d3.select('#xAxis')
       .attr('overflow', 'visible')
       .append('g')
-      .attr(
-        'transform',
-        `translate(${margin.right + margin.left}, ${
-          height / 2 + (margin.bottom - margin.top)
-        })`
-      )
+      .attr('transform', `translate(${0}, ${height - margin * 2})`)
       .call(axisBottom(xScale));
 
     const yScale = d3
       .scaleLinear()
       .domain([0, 60000000])
-      .range([height / 2, 0]);
+      .range([height - margin * 2, 0]);
 
     d3.select('#yAxis')
       .attr('overflow', 'visible')
       .append('g')
-      .attr(
-        'transform',
-        `translate(${margin.right + margin.left}, ${
-          0 - margin.top + margin.bottom
-        })`
-      )
       .call(axisLeft(yScale));
 
     const salesData = data['Sales $'].map((dataObj, index) => {
@@ -88,10 +80,16 @@ const LineChart = ({ data, xAxis, yAxes }) => {
   }, []);
 
   return (
-    <svg width={width} height={height} viewBox="0 0 1000 750">
-      <g id="xAxis" />
-      <g id="yAxis" />
-      <g id="lines" />
+    <svg
+      width={'100%'}
+      height={height}
+      viewBox={`${0} ${0} ${width} ${height}`}
+    >
+      <g id="main-g-tag">
+        <g id="xAxis" />
+        <g id="yAxis" />
+        <g id="lines" />
+      </g>
     </svg>
   );
 };
