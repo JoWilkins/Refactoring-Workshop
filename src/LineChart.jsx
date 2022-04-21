@@ -62,7 +62,7 @@ const LineChart = ({ data, xAxis, yAxes }) => {
         .datum(data)
         .attr('fill', 'none')
         .attr('stroke', colour)
-        .attr('strokeWidth', 3)
+        .attr('stroke-width', 3)
         .attr('d', valueline)
         .attr(
           'transform',
@@ -71,9 +71,9 @@ const LineChart = ({ data, xAxis, yAxes }) => {
           })`
         );
     };
-    applyLines(salesData, 'red');
-    applyLines(budgetData, 'green');
-    applyLines(lySales, 'blue');
+    applyLines(salesData, '#99B898');
+    applyLines(budgetData, '#FECEAB');
+    applyLines(lySales, '#FF847C');
     return () => {
       d3.selectAll('g').exit().remove();
     };
@@ -84,6 +84,7 @@ const LineChart = ({ data, xAxis, yAxes }) => {
       width={'100%'}
       height={height}
       viewBox={`${0} ${0} ${width} ${height}`}
+      color="black"
     >
       <g id="main-g-tag">
         <g id="xAxis" />

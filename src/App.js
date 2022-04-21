@@ -4,12 +4,13 @@ import QlikConnector from './enigma/qlikConnector';
 import MultiLineChart from './MutliLineChart';
 import Navbar from './Navbar';
 import Tab from './Tab';
+import Table from './Table';
 
 const AppWrapper = styled.div`
   background-color: #515e70;
   display: flex;
   flex-direction: column;
-  color: black;
+  color: white;
   height: 100%;
   width: 100%;
 `;
@@ -73,9 +74,10 @@ const App = () => {
         {selectedTab === 'first' && (
           <MultiLineChart qlikApp={qlikApp} objectId={'mCjTgdm'} />
         )}
-        {selectedTab === 'second' && <div>Test</div>}
+        {selectedTab === 'second' && (
+          <Table qlikApp={qlikApp} objectId={'WphfMw'} />
+        )}
       </TabBoxContainer>
-      {/* {qlikApp && <MultiLineChart qlikApp={qlikApp} objectId={'mCjTgdm'} />} */}
     </AppWrapper>
   );
 };
