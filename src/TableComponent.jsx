@@ -9,7 +9,7 @@ const TableWrapper = styled.div`
   color: ${({ colour }) => colour || 'black'};
 `;
 
-const Row = styled.div`
+const Row = styled.div` 
   display: flex;
   flex-direction: row;
   width: ${({ totalWidth }) => totalWidth || '100%'};
@@ -32,16 +32,17 @@ const Cell = styled.div`
   border-right: solid 1px;
 `;
 
-const TableComponent = ({ headers, data }) => {
+const TableComponent = ({ headers, data, headersColour }) => {
   const totalWidth = headers.reduce((runningTotal, headerObj) => {
     let currTotal = runningTotal + headerObj.width;
     return currTotal;
   }, 0);
   return (
     <TableWrapper>
+      {/* Headers Row */}
       <Row
         totalWidth={`${totalWidth}px`}
-        colour="white"
+        colour={headersColour}
         backgroundColor="darkGrey"
       >
         {headers.map((header) => {
@@ -52,6 +53,7 @@ const TableComponent = ({ headers, data }) => {
           );
         })}
       </Row>
+      {/* All Data rows */}
       {data.map((row, rowIndex) => {
         return (
           <Row totalWidth={`${totalWidth}px`} key={`row-${rowIndex}`}>

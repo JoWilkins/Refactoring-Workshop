@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import QlikConnector from './enigma/qlikConnector';
-import MultiLineChart from './MutliLineChart';
-import Navbar from './Navbar';
-import Tab from './Tab';
-import Table from './Table';
+import FirstPage from './page/first/FirstPage.jsx';
+import Navbar from './navComponents/Navbar';
+import Tab from './navComponents/Tab';
+import SecondPage from './SecondPage';
 
 const AppWrapper = styled.div`
   background-color: #515e70;
@@ -41,8 +41,9 @@ const tabs = [
 
 const App = () => {
   const [qlikApp, setQlikApp] = useState();
-  const [selectedTab, setSelectedTab] = useState('first');
+  const [selectedTab, setSelectedTab] = useState('second');
 
+  // gettign the qlik app and setting to state on first load of page
   useEffect(() => {
     const getQlikApp = async () => {
       const sourcedQlikApp = await QlikConnector(
@@ -72,10 +73,10 @@ const App = () => {
           })}
         </TabsWrapper>
         {selectedTab === 'first' && (
-          <MultiLineChart qlikApp={qlikApp} objectId={'mCjTgdm'} />
+          <FirstPage qlikApp={qlikApp} objectId={'mCjTgdm'} />
         )}
         {selectedTab === 'second' && (
-          <Table qlikApp={qlikApp} objectId={'WphfMw'} />
+          <SecondPage qlikApp={qlikApp} objectId={'WphfMw'} />
         )}
       </TabBoxContainer>
     </AppWrapper>
